@@ -2,3 +2,6 @@
 
 #上課網址#
 https://meet.google.com/qkf-btyj-jnz
+
+#python APP#
+jupytet notebook
