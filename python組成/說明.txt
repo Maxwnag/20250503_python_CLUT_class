@@ -1,0 +1,26 @@
+檔案的 close() 方法用於關閉一個已開啟的檔案。
+
+為什麼需要 close()？
+
+釋放資源： 開啟的檔案會佔用系統資源 (例如檔案描述符)。關閉檔案可以釋放這些資源，避免資源洩漏，尤其是在處理大量檔案時。
+確保資料寫入： 當您寫入檔案時，資料通常會先被放入緩衝區。呼叫 close() (或 flush()) 會確保緩衝區中的所有資料都被實際寫入到磁碟上的檔案中。如果程式異常終止而未關閉檔案，部分資料可能會遺失。
+允許其他程式存取： 某些作業系統可能會鎖定已開啟的檔案，阻止其他程式存取。關閉檔案可以解除這種鎖定。
+
+try:
+    with open("example_with.txt", "w", encoding="utf-8") as f:
+        f.write("使用 with 陳述式，自動關閉。\n")
+        # ... 其他檔案操作 ...
+        # 離開 with 區塊時，f.close() 會自動被呼叫
+    # 此時 f 已經關閉
+    # print(f.closed) # 如果在這裡嘗試存取 f.closed，會引發 ValueError，因為 f 只在 with 區塊內有效
+except IOError as e:
+    print(f"發生檔案錯誤: {e}")
+
+# 如果想在 with 區塊外檢查檔案是否關閉，可以這樣做：
+# (但通常不需要，因為 with 保證了關閉)
+# f_ref = None
+# with open("example_with.txt", "r", encoding="utf-8") as f:
+#     f_ref = f
+#     content = f.read()
+#     print(content)
+# print(f_ref.closed) # 輸出: True
