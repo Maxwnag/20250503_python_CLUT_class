@@ -1,0 +1,34 @@
+name: 檔案的名稱或路徑。
+with open("example.txt", "r") as f:
+    print(f.name)  # 輸出: example.txt
+
+mode: 開啟檔案時使用的模式。
+with open("example.txt", "r") as f:
+    print(f.mode)  # 輸出: r
+
+closed: 一個布林值，表示檔案是否已經關閉。
+with open("example.txt", "r") as f:
+    print(f.closed)  # 輸出: False
+print(f.closed)      # 輸出: True (離開 with 區塊後自動關閉)
+
+
+encoding (僅限文字模式): 開啟檔案時使用的編碼。如果以二進位模式開啟，則此屬性不存在。
+with open("example.txt", "r", encoding="utf-8") as f:
+    print(f.encoding) # 輸出: utf-8
+
+
+
+newlines (僅限文字模式，且通用換行符模式開啟時): 一個字串或元組，表示檔案中遇到的換行符類型。
+          # 假設 example.txt 包含 Windows 換行符 (\r\n)
+with open("example.txt", "r", newline='') as f: # newline='' 啟用通用換行符模式
+    f.read()
+    print(f.newlines) # 可能輸出: '\r\n' 或 ('\r', '\n', '\r\n') 中的一種或多種
+
+
+read(size=-1): 讀取檔案內容。如果指定 size，則讀取指定數量的字元 (文字模式) 或位元組 (二進位模式)。如果未指定 size 或為負數，則讀取整個檔案。
+with open("example.txt", "r", encoding="utf-8") as f:
+    content_all = f.read()
+    f.seek(0) # 將指標移回檔案開頭
+    content_partial = f.read(10) # 讀取前 10 個字元
+    print(f"全部內容:\n{content_all}")
+    print(f"部分內容: {content_partial}")
