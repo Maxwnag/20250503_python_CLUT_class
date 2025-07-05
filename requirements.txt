@@ -1,7 +1,8 @@
-pandas
-numpy
-seaborn
+rainbow CSV
 matplotlib
 Rainbow
+plotly
 streamlit
+numpy
+pandas
 yfinance
